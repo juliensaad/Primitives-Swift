@@ -12,6 +12,12 @@
 		1D303A5D1DA171CB0040F82C /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1D303A5B1DA171CB0040F82C /* Main.storyboard */; };
 		1D303A5F1DA171CB0040F82C /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 1D303A5E1DA171CB0040F82C /* Assets.xcassets */; };
 		1D303A621DA171CB0040F82C /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1D303A601DA171CB0040F82C /* LaunchScreen.storyboard */; };
+		1D8DDCDC1DA175A200588492 /* PrimitiveImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D8DDCDB1DA175A200588492 /* PrimitiveImage.swift */; };
+		1DC50C151DA1916300D17722 /* UIImage+Additions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DC50C141DA1916300D17722 /* UIImage+Additions.swift */; };
+		1DD522FE1DA9A26E00B93A17 /* PrimitiveImageIterator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DD522FD1DA9A26E00B93A17 /* PrimitiveImageIterator.swift */; };
+		1DD523001DA9A28600B93A17 /* RawRepresentationImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DD522FF1DA9A28600B93A17 /* RawRepresentationImage.swift */; };
+		1DE816841DA98C60009917D6 /* UIColor+Additions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DE816831DA98C60009917D6 /* UIColor+Additions.swift */; };
+		1DE816861DA98C83009917D6 /* RGBA32.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DE816851DA98C83009917D6 /* RGBA32.swift */; };
 		5D47C62E2932D89080B0E770 /* Pods_Primitives.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EAC1D54D5BE7B8EBB42AE42E /* Pods_Primitives.framework */; };
 /* End PBXBuildFile section */
 
@@ -24,6 +30,12 @@
 		1D303A5E1DA171CB0040F82C /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		1D303A611DA171CB0040F82C /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		1D303A631DA171CB0040F82C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		1D8DDCDB1DA175A200588492 /* PrimitiveImage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PrimitiveImage.swift; sourceTree = "<group>"; };
+		1DC50C141DA1916300D17722 /* UIImage+Additions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIImage+Additions.swift"; sourceTree = "<group>"; };
+		1DD522FD1DA9A26E00B93A17 /* PrimitiveImageIterator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PrimitiveImageIterator.swift; sourceTree = "<group>"; };
+		1DD522FF1DA9A28600B93A17 /* RawRepresentationImage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RawRepresentationImage.swift; sourceTree = "<group>"; };
+		1DE816831DA98C60009917D6 /* UIColor+Additions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIColor+Additions.swift"; sourceTree = "<group>"; };
+		1DE816851DA98C83009917D6 /* RGBA32.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RGBA32.swift; sourceTree = "<group>"; };
 		7346CD024AB4D5964663432C /* Pods-Primitives.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Primitives.release.xcconfig"; path = "Pods/Target Support Files/Pods-Primitives/Pods-Primitives.release.xcconfig"; sourceTree = "<group>"; };
 		EAC1D54D5BE7B8EBB42AE42E /* Pods_Primitives.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Primitives.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -63,10 +75,16 @@
 			children = (
 				1D303A571DA171CB0040F82C /* AppDelegate.swift */,
 				1D303A591DA171CB0040F82C /* ViewController.swift */,
+				1DE816851DA98C83009917D6 /* RGBA32.swift */,
 				1D303A5B1DA171CB0040F82C /* Main.storyboard */,
 				1D303A5E1DA171CB0040F82C /* Assets.xcassets */,
 				1D303A601DA171CB0040F82C /* LaunchScreen.storyboard */,
 				1D303A631DA171CB0040F82C /* Info.plist */,
+				1D8DDCDB1DA175A200588492 /* PrimitiveImage.swift */,
+				1DD522FF1DA9A28600B93A17 /* RawRepresentationImage.swift */,
+				1DC50C141DA1916300D17722 /* UIImage+Additions.swift */,
+				1DE816831DA98C60009917D6 /* UIColor+Additions.swift */,
+				1DD522FD1DA9A26E00B93A17 /* PrimitiveImageIterator.swift */,
 			);
 			path = Primitives;
 			sourceTree = "<group>";
@@ -213,7 +231,13 @@
 			buildActionMask = 2147483647;
 			files = (
 				1D303A5A1DA171CB0040F82C /* ViewController.swift in Sources */,
+				1DE816841DA98C60009917D6 /* UIColor+Additions.swift in Sources */,
+				1DE816861DA98C83009917D6 /* RGBA32.swift in Sources */,
+				1DC50C151DA1916300D17722 /* UIImage+Additions.swift in Sources */,
+				1DD522FE1DA9A26E00B93A17 /* PrimitiveImageIterator.swift in Sources */,
 				1D303A581DA171CB0040F82C /* AppDelegate.swift in Sources */,
+				1D8DDCDC1DA175A200588492 /* PrimitiveImage.swift in Sources */,
+				1DD523001DA9A28600B93A17 /* RawRepresentationImage.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
