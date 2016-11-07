@@ -12,6 +12,7 @@
 		1D303A5D1DA171CB0040F82C /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1D303A5B1DA171CB0040F82C /* Main.storyboard */; };
 		1D303A5F1DA171CB0040F82C /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 1D303A5E1DA171CB0040F82C /* Assets.xcassets */; };
 		1D303A621DA171CB0040F82C /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1D303A601DA171CB0040F82C /* LaunchScreen.storyboard */; };
+		1D6134491DCFDB8C00A44660 /* Ellipse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D6134481DCFDB8C00A44660 /* Ellipse.swift */; };
 		1D8DDCDC1DA175A200588492 /* PrimitiveImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D8DDCDB1DA175A200588492 /* PrimitiveImage.swift */; };
 		1DC50C151DA1916300D17722 /* UIImage+Additions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DC50C141DA1916300D17722 /* UIImage+Additions.swift */; };
 		1DD522FE1DA9A26E00B93A17 /* PrimitiveImageIterator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DD522FD1DA9A26E00B93A17 /* PrimitiveImageIterator.swift */; };
@@ -30,6 +31,7 @@
 		1D303A5E1DA171CB0040F82C /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		1D303A611DA171CB0040F82C /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		1D303A631DA171CB0040F82C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		1D6134481DCFDB8C00A44660 /* Ellipse.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Ellipse.swift; sourceTree = "<group>"; };
 		1D8DDCDB1DA175A200588492 /* PrimitiveImage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PrimitiveImage.swift; sourceTree = "<group>"; };
 		1DC50C141DA1916300D17722 /* UIImage+Additions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIImage+Additions.swift"; sourceTree = "<group>"; };
 		1DD522FD1DA9A26E00B93A17 /* PrimitiveImageIterator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PrimitiveImageIterator.swift; sourceTree = "<group>"; };
@@ -85,6 +87,7 @@
 				1DC50C141DA1916300D17722 /* UIImage+Additions.swift */,
 				1DE816831DA98C60009917D6 /* UIColor+Additions.swift */,
 				1DD522FD1DA9A26E00B93A17 /* PrimitiveImageIterator.swift */,
+				1D6134481DCFDB8C00A44660 /* Ellipse.swift */,
 			);
 			path = Primitives;
 			sourceTree = "<group>";
@@ -236,6 +239,7 @@
 				1DC50C151DA1916300D17722 /* UIImage+Additions.swift in Sources */,
 				1DD522FE1DA9A26E00B93A17 /* PrimitiveImageIterator.swift in Sources */,
 				1D303A581DA171CB0040F82C /* AppDelegate.swift in Sources */,
+				1D6134491DCFDB8C00A44660 /* Ellipse.swift in Sources */,
 				1D8DDCDC1DA175A200588492 /* PrimitiveImage.swift in Sources */,
 				1DD523001DA9A28600B93A17 /* RawRepresentationImage.swift in Sources */,
 			);

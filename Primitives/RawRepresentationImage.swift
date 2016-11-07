@@ -54,7 +54,7 @@ struct RawRepresentationImage {
     
     func averageColor(minX: Int, maxX: Int, minY: Int, maxY: Int) -> RGBA32 {
         
-        if minX == maxX && minY == maxY {
+        if minX == maxX || minY == maxY || minX > maxX || minY > maxY {
             return pixels[minX][minY]
         }
         
@@ -74,113 +74,141 @@ struct RawRepresentationImage {
         return RGBA32(red: UInt8(Double(Int(r) / count)),
                       green: UInt8(Double(Int(g) / count)),
                       blue: UInt8(Double(Int(b) / count)),
-                      alpha: 255)
+                      alpha: 180)
     }
     
-    mutating func addRandomCircle(usingTintForOriginalImage originalImage: RawRepresentationImage, iteration: Int) -> Rect {
+    mutating func addRandomCircle(usingTintForOriginalImage originalImage: RawRepresentationImage, iteration: Int) -> Ellipse {
         
-        var radius = 0
-        if iteration < 10 {
-            radius = height / 3
+        let radius = arc4random_uniform(UInt32(height / 2))
+        let x = arc4random_uniform(UInt32(width))
+        let y = arc4random_uniform(UInt32(height))
+        
+        let circle = Ellipse(x: x, y: y, radius: radius)
+        addCircle(circle: circle, tintedWithImage: originalImage)
+        
+        return circle
+    }
+    
+    mutating func addMutatedCircle(usingTintForOriginalImage originalImage: RawRepresentationImage, circle: Ellipse) -> Ellipse {
+        
+        let radius = Int(circle.radius) + randRange(lower: -5, upper: 5)
+        
+        let lowerBoundX = -Int(min(10, circle.x))
+        let lowerBoundY = -Int(min(10, circle.y))
+        let upperBoundX = UInt32(circle.x + 10) >= UInt32(width - 1) ? width - Int(circle.x) : 10
+        let upperBoundY = UInt32(circle.y + 10) >= UInt32(height - 1) ? height - Int(circle.y) : 10
+
+        //print("Past circle \(circle)")
+        var x = Int(circle.x) + randRange(lower: lowerBoundX, upper: upperBoundX)
+        var y = Int(circle.y) + randRange(lower: lowerBoundY, upper: upperBoundY)
+        
+        if x < 0 {
+            x = 0
         }
-        else if iteration < 100 {
-            radius = height / 5
+        if y < 0 {
+            y = 0
         }
-        else if iteration < 200 {
-            radius = height / 10
+        if y > height - 1 {
+            y = height - 1
         }
-        else if iteration < 400 {
-            radius = height / 15
+        if x > width - 1 {
+            x = width - 1
         }
-        else if iteration < 600 {
-            radius = height / 20
-        }
-        else if iteration < 800 {
-            radius = height / 25
-        }
-        else if iteration < 1000 {
-            radius = height / 30
-        }
-        else if iteration < 1200 {
-            radius = height / 40
+        circle.x = UInt32(x)
+        circle.y = UInt32(y)
+        
+        if radius < 5 {
+            circle.radius = 5
         }
         else {
-            radius = height / 50
+            circle.radius = UInt32(radius)
         }
-        let x = Int(arc4random_uniform(UInt32(width)))
-        let y = Int(arc4random_uniform(UInt32(height)))
+        
+        
+        ///print("New circle \(circle)")
+        addCircle(circle: circle, tintedWithImage: originalImage)
+        
+        return circle
+    }
+    
+    func randRange (lower: Int , upper: Int) -> Int {
+        return lower + Int(arc4random_uniform(UInt32(upper - lower + 1)))
+    }
+    
+    mutating func addCircle(circle: Ellipse, tintedWithImage image: RawRepresentationImage) {
+        let color = RGBA32.randomGray(alpha: UInt8(randRange(lower: 128, upper: 255)))
+//        let color = image.averageColor(minX: max(0, Int(circle.x) - Int(circle.radius)),
+//                                       maxX: min(width - 1, Int(circle.x) + Int(circle.radius)),
+//                                       minY: max(0, Int(circle.y) - Int(circle.radius)),
+//                                       maxY: min(height - 1, Int(circle.y) + Int(circle.radius)))
         
         let dimmer: Int = Int(sqrt(Double(arc4random_uniform(8)))) + 1
         let adder: Int = Int(sqrt(Double(arc4random_uniform(8)))) + 1
-        
-        let color = originalImage.averageColor(minX: max(0, x - radius), maxX: min(width - 1, x + radius), minY: max(0, y - radius), maxY: min(height - 1, y + radius))
-  
-        let radiusSquared = radius * radius
+
+        let radiusSquared = circle.radius * circle.radius
         for row in 0 ..< width {
             for column in 0 ..< height {
-                let squareRow = Int(row - x) * Int(row - x)
-                let squareColumn = Int(column - y) * Int(column - y)
-                let distanceSquared = squareRow / dimmer + squareColumn / adder
+                let squareRow = Int(Int(row) - Int(circle.x)) * Int(Int(row) - Int(circle.x))
+                let squareColumn = Int(Int(column) - Int(circle.y)) * Int(Int(column) - Int(circle.y))
+                let distanceSquared = UInt32(squareRow * dimmer + squareColumn * adder)
                 if distanceSquared <= radiusSquared {
                     let combinedColor = pixels[row][column] + color
                     pixels[row][column] = combinedColor
                 }
             }
         }
-        
-        return Rect(minx: max(0, x - radius), miny: max(0,y - radius), maxx: min(width, x + radius), maxy: min(height, y + radius))
     }
     
-    mutating func addRandomSquare(usingTintForOriginalImage originalImage: RawRepresentationImage, iteration: Int) -> Rect {
-        var radius = 0
-        if iteration < 10 {
-            radius = height / 3
-        }
-        else if iteration < 100 {
-            radius = height / 5
-        }
-        else if iteration < 200 {
-            radius = height / 10
-        }
-        else if iteration < 400 {
-            radius = height / 15
-        }
-        else if iteration < 600 {
-            radius = height / 20
-        }
-        else if iteration < 800 {
-            radius = height / 25
-        }
-        else if iteration < 1000 {
-            radius = height / 30
-        }
-        else if iteration < 1200 {
-            radius = height / 40
-        }
-        else {
-            radius = height / 50
-        }
-        
-        let side = radius
-        let x = Int(arc4random_uniform(UInt32(width)))
-        let y = Int(arc4random_uniform(UInt32(height)))
-        let color = originalImage.averageColor(minX: max(0, x - side), maxX: min(width - 1, x + side), minY: max(0, y - side), maxY: min(height - 1, y + side))
-        
-        //averageColor(minX: max(0, x - side), maxX: min(width - 1, x + side), minY: max(0, y - side), maxY: min(height - 1, y + side))
-        
-        //RGBA32(red: UInt8(arc4random_uniform(255)), green: UInt8(arc4random_uniform(255)), blue: UInt8(arc4random_uniform(255)), alpha: 128)//averageColor(minX: max(0, x - radius), maxX: min(width - 1, x + radius), minY: max(0, y - radius), maxY: min(height - 1, y + radius))
-        // print(color)
-        
-        
-        for row in x ..< min(width, x + side) {
-            for column in y ..< min(height, y + side) {
-                let combinedColor = pixels[row][column] + color
-                pixels[row][column] = combinedColor
-            }
-        }
-        
-        return Rect(minx: x, miny: y, maxx: min(width, x + side), maxy: min(height, y + side))
-    }
+//    mutating func addRandomSquare(usingTintForOriginalImage originalImage: RawRepresentationImage, iteration: Int) -> Rect {
+//        var radius = 0
+//        if iteration < 10 {
+//            radius = height / 3
+//        }
+//        else if iteration < 100 {
+//            radius = height / 5
+//        }
+//        else if iteration < 200 {
+//            radius = height / 10
+//        }
+//        else if iteration < 400 {
+//            radius = height / 15
+//        }
+//        else if iteration < 600 {
+//            radius = height / 20
+//        }
+//        else if iteration < 800 {
+//            radius = height / 25
+//        }
+//        else if iteration < 1000 {
+//            radius = height / 30
+//        }
+//        else if iteration < 1200 {
+//            radius = height / 40
+//        }
+//        else {
+//            radius = height / 50
+//        }
+//        
+//        let side = radius
+//        let x = Int(arc4random_uniform(UInt32(width)))
+//        let y = Int(arc4random_uniform(UInt32(height)))
+//        let color = originalImage.averageColor(minX: max(0, x - side), maxX: min(width - 1, x + side), minY: max(0, y - side), maxY: min(height - 1, y + side))
+//        
+//        //averageColor(minX: max(0, x - side), maxX: min(width - 1, x + side), minY: max(0, y - side), maxY: min(height - 1, y + side))
+//        
+//        //RGBA32(red: UInt8(arc4random_uniform(255)), green: UInt8(arc4random_uniform(255)), blue: UInt8(arc4random_uniform(255)), alpha: 128)//averageColor(minX: max(0, x - radius), maxX: min(width - 1, x + radius), minY: max(0, y - radius), maxY: min(height - 1, y + radius))
+//        // print(color)
+//        
+//        
+//        for row in x ..< min(width, x + side) {
+//            for column in y ..< min(height, y + side) {
+//                let combinedColor = pixels[row][column] + color
+//                pixels[row][column] = combinedColor
+//            }
+//        }
+//        
+//        return Rect(minx: x, miny: y, maxx: min(width, x + side), maxy: min(height, y + side))
+//    }
     
 }
 

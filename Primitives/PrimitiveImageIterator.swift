@@ -43,20 +43,52 @@ class PrimitiveImageIterator {
         var bestScore: Int = self.currentBitmap.compare(otherRepresentation: objectiveData)
         let initialScore = bestScore
         
+        var bestCircle: Ellipse = Ellipse(x: 0, y: 0, radius: 0)
+        
         var iterationCount = 0
-        while (bestScore == initialScore) {
+        // Find an initial okay circle to add
+        while bestScore == initialScore && iterationCount < 10 {
             var newRepresentation = baseBitmap
-            _ = newRepresentation.addRandomCircle(usingTintForOriginalImage: objectiveData, iteration:stepCount)
+            let circle = newRepresentation.addRandomCircle(usingTintForOriginalImage: objectiveData, iteration:stepCount)
+            
+            let score = newRepresentation.compare(otherRepresentation: objectiveData)
+            
+            if score < bestScore {
+                iterationCount = 0
+                bestGuess = newRepresentation
+                bestScore = score
+                bestCircle = circle
+                print("Randomly improved solution")
+            }
+            iterationCount += 1
+        }
+        
+        print("Random circle : \(bestCircle)")
+        var upgradeCount = 0
+        var attempts = 0
+        while upgradeCount < 50 {
+            var newRepresentation = baseBitmap
+            let circle = newRepresentation.addMutatedCircle(usingTintForOriginalImage: objectiveData, circle: bestCircle)
             
             let score = newRepresentation.compare(otherRepresentation: objectiveData)
             
             if score < bestScore {
                 bestGuess = newRepresentation
                 bestScore = score
+                bestCircle = circle
+                upgradeCount += 1
+                print("Smart circle : \(bestCircle)")
+                print("Smartly improved solution")
+                attempts = 0
             }
-            iterationCount += 1
+            attempts += 1
         }
+        
+        
         stepCount += 1
-        self.currentBitmap = bestGuess
+        if bestScore < initialScore {
+            print("Solution improved by \(initialScore - bestScore)");
+            self.currentBitmap = bestGuess
+        }
     }
 }

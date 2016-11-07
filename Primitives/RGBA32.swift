@@ -78,6 +78,14 @@ struct RGBA32: Equatable {
         return RGBA32(red: red, green: green, blue: blue, alpha: alpha)
     }
     
+    static func randomGray(alpha: UInt8) -> RGBA32 {
+        let red = UInt8(arc4random_uniform(UInt32(UInt8.max)))
+        let green = red
+        let blue = red
+        
+        return RGBA32(red: red, green: green, blue: blue, alpha: alpha)
+    }
+    
     static let bitmapInfo = CGImageAlphaInfo.premultipliedLast.rawValue | CGBitmapInfo.byteOrder32Little.rawValue
     
     static func ==(lhs: RGBA32, rhs: RGBA32) -> Bool {
